@@ -1,0 +1,8 @@
+*
+!/bin
+!/bin/clean-up.sh
+!/bin/fuzzy-lock.sh
+!/bin/repeat-test.sh
+!/bin/reset-model.sh
+!/.gitignore.d
+!/.gitignore.d/scripts
