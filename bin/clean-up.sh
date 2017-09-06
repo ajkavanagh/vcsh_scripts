@@ -8,6 +8,12 @@ find . -name '__pycache__' -prune -exec rm -rf "{}" \;
 find . -iname '*.pyc' -delete
 find . -name 'func-results.json' -delete
 
+# clean up the builds of charms too
+# 1. reactive/.*/build/builds is above the current directory
+find . -type d | egrep "/reactive/,*/build$" | xargs rm -rf
+# 2. /reactive is below and build/builds is above the current directory
+pwd | egrep "/reactive(/|$)" && find . -type d | egrep "/build$" | xargs rm -rf
+
 # cleanup rust targets
 # 1. rust directory is above the current directory
 pwd | egrep "/rust(/|$)" && find -name 'target' -type d -prune -exec rm -rf "{}" \;

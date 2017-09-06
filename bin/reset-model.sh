@@ -11,6 +11,7 @@ response=${response,,}    # tolower
 if [[ "$response" =~ ^(yes|y)$ ]]; then
 	juju destroy-model $model -y
 	juju add-model $model
+	set-model-config.sh
 	echo "Done!"
 else
 	echo "Doing nothing."
