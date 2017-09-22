@@ -38,10 +38,9 @@ create_if_needed "5" "other"
 # now ensure that all the windows have sourced ~/novarc and that the first three are running
 # their programs.
 NOVARC="source $HOME/novarc"
-BEISNER_SCRIPTS="$HOME/beiser-yunk-yard/serverstack-scripts"
-JUJU_STAT="$BEISNER_SCRIPTS/watch-juju-stat.sh"
-NOVA="$BEISNER_SCRIPTS/watch-nova.sh"
-HOSTS="$BEISNER_SCRIPTS/watch-hosts.sh"
+JUJU_STAT="bin/watch-juju-stat.sh"
+NOVA="bin/watch-nova.sh"
+HOSTS="bin/watch-hosts.sh"
 
 tmux send-keys -t :0 C-c; tmux send-keys -t :0 "$NOVARC" C-m; tmux send-keys -t :0  "$JUJU_STAT" C-m
 tmux send-keys -t :1 C-c; tmux send-keys -t :1 "$NOVARC" C-m; tmux send-keys -t :1  "$HOSTS" C-m
