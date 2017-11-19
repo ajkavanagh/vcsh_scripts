@@ -43,7 +43,7 @@ def runner(args):
             os.execv(editor, [editor] + args)
 
     print("Couldn't find the path as a file?")
-    exist(1)
+    exit(1)
 
 
 if __name__ == '__main__':
