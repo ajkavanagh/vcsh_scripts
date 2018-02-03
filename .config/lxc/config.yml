@@ -1,0 +1,5 @@
+default-remote: local
+aliases:
+  delete: delete -f
+  shell: exec @ARGS@ -- bash
+  ubuntu: exec @ARGS@ -- sudo --login --user ubuntu
