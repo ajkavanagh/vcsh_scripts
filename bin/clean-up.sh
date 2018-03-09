@@ -4,6 +4,8 @@
 find . -name '.tox' -prune -exec rm -rf "{}" \;
 find . -iname '.venv*' -prune -exec rm -rf "{}" \;
 find . -name '.testrepository' -prune -exec rm -rf "{}" \;
+find . -name '*.egg-info' -prune -exec rm -rf "{}" \;
+find . -name '.eggs' -prune -exec rm -rf "{}" \;
 find . -name '__pycache__' -prune -exec rm -rf "{}" \;
 find . -name '.stestr' -prune -exec rm -rf "{}" \;
 find . -iname '*.pyc' -delete
