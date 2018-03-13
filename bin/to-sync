@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Sync files to the device from the current directory.
+# If the initial directory is $HOME/Projects/Canonical or $HOME/Projects/Personal then
+# that part of the directory is stripped off.
+# Then the remote directory is made and attempted to be synced to.
+
+_script=$( basename $0 )
+_pwd=$(pwd)
+
+# Strip directories
+strip_dirs=($HOME/Projects/Canonical $HOME/Projects/Personal)
+
+SSH_OPTIONS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
+function usage {
+        printf "\nCopy the CURRENT directory to a remote machine in roughly the same place.\n"
+        printf "\nUSAGE:\n\n$_script [-h|--help]\n"
+	printf "$_script {IP|name} [-n]\n"
+        printf "\nThis rsyncs the CURRENT directory TO the machine specified in the option.\n"
+        printf "Note that it should be possible to ssh into the machine by just typeing\n"
+        printf "'ssh machine' .. i.e. all the necessary stuff should be in \$HOME/.ssh/config\n"
+        printf "\n\nwhere:\n"
+        printf " -h | --help     : this usage page\n"
+	printf " {IP|name}       : the machine to copy to\n"
+	printf " [-n]            : DON'T exclude .git -- usually it is."
+}
+
+# check options
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+        usage
+        exit 0
+fi
+
+if [[ -z $1 ]]; then
+        usage
+        echo "ERROR! Need to supply the server name"
+        exit 1
+fi
+SERVER=${1}
+
+_exclude="--exclude .git"
+if [[ "$2" == "-n" ]]; then
+	unset _exclude
+fi
+
+unset _target
+for p in ${strip_dirs[@]}; do
+	if [[ $_pwd == $p* ]]; then
+		_target=${_pwd/#$p/\.}
+		break
+	fi
+done
+if [[ -z $_target ]]; then
+	echo "$_pwd is NOT in any of the syncable dirs."
+	echo "${strip_dirs[@]}"
+	usage
+	exit 1
+fi
+
+# Now sync the files across from $_pwd to $SERVER:$_target
+ssh $SSH_OPTIONS $SERVER mkdir -p ${_target}
+set -x
+rsync -avz -e "ssh $SSH_OPTIONS" ${_exclude} --delete --progress ${_pwd}/ ${SERVER}:${_target}
+
+# vim: filetype=sh :
