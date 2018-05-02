@@ -23,7 +23,7 @@ function usage {
         printf "\n\nwhere:\n"
         printf " -h | --help     : this usage page\n"
 	printf " {IP|name}       : the machine to copy to\n"
-	printf " [-n]            : DON'T exclude .git -- usually it is."
+	printf " [-n]            : exclude .git -- usually it isn't."
 }
 
 # check options
@@ -39,9 +39,9 @@ if [[ -z $1 ]]; then
 fi
 SERVER=${1}
 
-_exclude="--exclude .git"
+unset _exclude
 if [[ "$2" == "-n" ]]; then
-	unset _exclude
+	_exclude="--exclude .git"
 fi
 
 unset _target
@@ -61,6 +61,7 @@ fi
 # Now sync the files across from $_pwd to $SERVER:$_target
 ssh $SSH_OPTIONS $SERVER mkdir -p ${_target}
 set -x
-rsync -avz -e "ssh $SSH_OPTIONS" ${_exclude} --delete --progress ${_pwd}/ ${SERVER}:${_target}
+#rsync -avz -e "ssh $SSH_OPTIONS" ${_exclude} --delete --progress ${_pwd}/ ${SERVER}:${_target}
+rsync -avz -e "ssh $SSH_OPTIONS" ${_exclude} --progress ${_pwd}/ ${SERVER}:${_target}
 
 # vim: filetype=sh :
