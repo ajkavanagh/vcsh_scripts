@@ -10,6 +10,7 @@ find . -name '__pycache__' -prune -exec rm -rf "{}" \;
 find . -name '.stestr' -prune -exec rm -rf "{}" \;
 find . -iname '*.pyc' -delete
 find . -name 'func-results.json' -delete
+find . -type d -name '.stack-work' -prune -exec rm -rf "{}" \;
 
 # clean up the builds of charms too
 # 1. reactive/.*/build/builds is above the current directory
