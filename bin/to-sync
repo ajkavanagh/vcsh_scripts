@@ -150,6 +150,7 @@ if [ -n "${_strip_charm}" ]; then
         _server_target="$_path/$TARGET"
     else
         echo "-c|--strip-charm option used but '$_name' doesn't start with 'charm-'"
+        exit 1
     fi
 elif [[ -z $TARGET ]]; then
     _server_target=${_target}
