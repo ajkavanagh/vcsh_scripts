@@ -34,7 +34,7 @@ function usage {
     done
 
     printf "\nUSAGE:\n\n$_script [-h|--help]\n"
-    printf "$_script [OPTIONS] NAME\n"
+    printf "$_script [OPTIONS] [NAME]\n"
     printf "\nThis rsyncs the CURRENT directory TO the machine specified in the option.\n"
     printf "Note that it should be possible to ssh into the machine by just typeing\n"
     printf "'ssh machine' .. i.e. all the necessary stuff should be in \$HOME/.ssh/config\n"
@@ -46,9 +46,11 @@ function usage {
     printf " --target=TARGET_DIR : the directory at the target to copy into\n"
     printf " -c|--strip-charm    : strip 'charm-' off the local directory and copy to that\n"
     printf "\nand:\n\n"
-    printf " NAME                : the machine to copy to\n"
+    printf " NAME                : the (Optional) machine to copy to\n"
     printf "\nNote that -t and -c options are exclusionary; either specify the target dir\n"
     printf "or strip the charm- but don't do both.\n"
+    printf "If NAME is not set, then the environment variable BASTION_NAME is used.  If it is\n"
+    printf "not set, then the script fails.\n"
 }
 
 OPTIONS=nht:cd
@@ -124,7 +126,15 @@ if [[ $# -gt 1 ]]; then
     exit 4
 fi
 
-SERVER=${1}
+if [[ $# -eq 0 ]]; then
+    if [[ -z ${BASTION_NAME} ]]; then
+        echo "NAME not provided and BASTION_NAME is not set"
+        exit 1
+    fi
+    SERVER=${BASTION_NAME}
+else
+    SERVER=${1}
+fi
 
 unset _target
 for p in ${strip_dirs[@]}; do
