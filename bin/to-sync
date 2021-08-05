@@ -70,7 +70,7 @@ fi
 # read getopt’s output this way to handle the quoting right:
 eval set -- "$PARSED"
 
-_exclude=
+_exclude="--exclude .tox --exclude .venv"
 TARGET=
 _strip_charm=
 _delete=
@@ -86,7 +86,7 @@ while true; do
             exit 0
             ;;
         -n|--ignore-git)
-            _exclude="--exclude .git"
+            _exclude="${_exclude} --exclude .git"
             shift
             ;;
         -t|--target)
