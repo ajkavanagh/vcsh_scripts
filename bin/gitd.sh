@@ -6,7 +6,7 @@ set -o noglob
 
 function get_reviews {
         local IFS=$'\n'
-        reviews=(`git review -l`)
+        reviews=(`git review -ll`)
         local i
         local j
         for (( i=0; i<${#reviews[@]} -1; i++ )) ; do
