@@ -19,7 +19,7 @@ _script=$( basename $0 )
 _pwd=$(pwd)
 
 # Strip directories
-strip_dirs=($HOME/Projects/Canonical $HOME/Projects/Personal)
+strip_dirs=($HOME/Projects/Canonical $HOME/Projects/Personal $HOME/Projects/Admin)
 
 SSH_OPTIONS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
@@ -144,7 +144,7 @@ for p in ${strip_dirs[@]}; do
 	fi
 done
 
-if [[ -z $_target ]]; then
+if [[ -z "${_target:-}" ]]; then
 	echo "$_pwd is NOT in any of the syncable dirs."
 	echo "${strip_dirs[@]}"
 	usage
