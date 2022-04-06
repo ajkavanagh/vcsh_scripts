@@ -23,3 +23,8 @@ pwd | egrep "/reactive(/|$)" && find . -type d | egrep "/build$" | xargs rm -rf
 pwd | egrep "/rust(/|$)" && find -name 'target' -type d -prune -exec rm -rf "{}" \;
 # 2. rust directory is below the current directory
 find -name 'target' -type d | egrep "/rust/" | xargs rm -rf
+
+CLEANUP_CHARMCRAFT=$(which clean-up-charmcraft.sh)
+if [[ ! -z "$CLEANUP_CHARMCRAFT" ]]; then
+    $CLEANUP_CHARMCRAFT
+fi
