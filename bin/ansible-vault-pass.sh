@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BW_VAULT_ENTRY_ID="ansible-vault"
 if [[ -z "$BW_SESSION" ]]; then

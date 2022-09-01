@@ -1,4 +1,4 @@
-#/bin/bash
+#/usr/bin/env bash
 
 set -e
 # Check for, and set up 6 windows in tmux such that:

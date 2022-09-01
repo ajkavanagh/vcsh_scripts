@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Sync files to the device from the current directory.
 # If the initial directory is $HOME/Projects/Canonical or $HOME/Projects/Personal then

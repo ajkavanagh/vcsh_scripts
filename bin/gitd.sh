@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # run git-review -l and then offer to download the one that is picked.
 
 # pesci '*' in juju lines meaning "selected" model end up globbing in the script
