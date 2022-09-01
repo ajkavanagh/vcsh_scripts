@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# helper to use rsync with lxd
+
+# 1. Store the first argument provided by rsync (target name) in the ctn variable
+# 2. Shift all arguments by 1 (effectively dropping the argument we just stored)
+# 3. Exec “lxc exec” for the container name we stored earlier and passing in all the remaining arguments as the command to execute in the container
+
+# from: https://discuss.linuxcontainers.org/t/rsync-files-into-container-from-host/822/2
+ctn="${1}"
+shift
+exec lxc exec "${ctn}" -- "$@"
+
+
