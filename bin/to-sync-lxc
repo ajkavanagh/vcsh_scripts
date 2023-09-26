@@ -191,7 +191,7 @@ lxc exec $SERVER -- mkdir -p "/home/ubuntu/${_server_target}"
 if [ -n "${_delete}" ]; then
     set -x
     #rsync -avz -e "ssh $SSH_OPTIONS" ${_exclude} --delete --progress ${_pwd}/ ${SERVER}:${_server_target}
-    rsync -avz -e $FAKE_RSYNC_SSH --delete --progress ${_pwd}/ ${SERVER}:${_server_target}
+    rsync -avz -e $FAKE_RSYNC_SSH --delete --progress ${_pwd}/ ${SERVER}:/home/ubuntu/${_server_target}
 else
     set -x
     #rsync -avz -e "ssh $SSH_OPTIONS" ${_exclude} --progress ${_pwd}/ ${SERVER}:${_server_target}
