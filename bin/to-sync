@@ -71,6 +71,7 @@ fi
 eval set -- "$PARSED"
 
 _exclude="--exclude .tox --exclude .venv"
+#exclude="--exclude .tox --exclude .venv"
 TARGET=
 _strip_charm=
 _delete=
